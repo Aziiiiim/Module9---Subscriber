@@ -1,6 +1,8 @@
 # Reflection
 
-## a. What is AMQP?
+## Part 1.
+
+### a. What is AMQP?
 
 **AMQP** (Advanced Message Queuing Protocol) is a standardized messaging protocol that enables systems to communicate with each other via message queues in a reliable, asynchronous, and decoupled manner.
 
@@ -8,7 +10,7 @@ It is often used in message brokers like RabbitMQ to support **publish/subscribe
 
 ---
 
-## b. What does it mean? guest:guest@localhost:5672, what is the first guest, and what is the second guest, and what is localhost:5672 is for?
+### b. What does it mean? guest:guest@localhost:5672, what is the first guest, and what is the second guest, and what is localhost:5672 is for?
 
 This is a connection URI used to connect to the RabbitMQ server using AMQP protocol:
 
@@ -16,3 +18,11 @@ This is a connection URI used to connect to the RabbitMQ server using AMQP proto
 - **Second `guest`**: This is the **password** for that username.
 - **`localhost`**: This means the RabbitMQ server is running on the **local machine**.
 - **`5672`**: This is the **default AMQP port** used by RabbitMQ to listen for incoming client connections.
+
+## Part 2.
+
+![Slow Subscriber Queue](img/Slow-Subscriber.png)
+
+On my machine, the queue reached a total of **35 messages**.
+
+This happened because I ran the publisher multiple times quickly, sending events faster than the subscriber could consume. Since each run of the publisher sends 5 messages, and I ran it 8 times rapidly, the subscriber received and proceed them and the queue had `5 × (8-1) = 35` messages.
